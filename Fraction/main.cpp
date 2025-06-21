@@ -53,12 +53,12 @@ public:
 		this->denominator = 1;
 		cout << "DefaultConstructor:\t" << this << endl;
 	}
-	Fraction(int integer)
+	explicit Fraction(int integer)
 	{
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator = 1;
-		cout << "Constructor:\t\t" << this << endl;
+		cout << "SingleArgConstructor:\t" << this << endl;
 	}
 	Fraction(int numerator, int denominator)
 	{
@@ -143,7 +143,15 @@ public:
 		integer--;
 		return old;
 	}
-
+	// Type cast operators
+	explicit operator int()const
+	{
+		return integer + numerator / denominator;
+	}
+	explicit operator double()const
+	{
+		return integer + (double)numerator / denominator;
+	}
 
 	//         method
 
@@ -314,7 +322,7 @@ std::istream& operator >> (std::istream& is, Fraction& obj)
 		//cout << endl;
 		switch (n)
 		{
-		case 1:obj = numbers[0]; break;
+		case 1:obj = Fraction[0]; break;
 		case 2:obj = Fraction(numbers[0], numbers[1]); break;
         case 3:obj = Fraction(numbers[0], numbers[1], numbers[2]);  break;
 
@@ -327,7 +335,9 @@ std::istream& operator >> (std::istream& is, Fraction& obj)
 //#define ARITHMETICAL_OPERATORS
 //#define INCREMENT_DECREMENT
 //#define COMPARISON_OPERTORS
-#define OSTREAM_ISTREAM
+//#define OSTREAM_ISTREAM
+//#define CONVERSIONS_FROM_OTHER_TO_CLASS
+//#define CONVERSIONS_BASICS
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -395,5 +405,38 @@ void main()
 	cout << A << endl;
 
 #endif // OSTREAM_ISTREAM
+
+#ifdef CONVERSIONS_BASICS
+	int a = 2; // No conversions
+	double b = 3; // inplicit conversion('int' to 'double')
+	int c = b; // без потери данных
+	int d = 4.5; // с потерей данных
+
+#endif // CONVERSIONS_BASICS
+
+#ifdef CONVERSIONS_FROM_OTHER_TO_CLASS
+	Fraction A = (Fraction)5;
+	cout << A << endl;
+	Fraction B;
+	cout << delimiter << endl;
+	B = 8;
+	cout << B << endl;
+
+#endif // CONVERSIONS_FROM_OTHER_TO_CLASS
+
+	//operator type()
+	//{
+	/
+
+	//}
+	Fraction A(2, 3, 4);
+	cout << A << endl;
+	int a = (int)A;
+	cout << a << endl;
+	double b = (double)A;
+	cout << b << endl;
+
+
+
 
 }
