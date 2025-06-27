@@ -74,6 +74,13 @@ public:
 		set_denominator(denominator);
 		cout << "Constructor : \t\t" << this << endl;
 	}
+	explicit Fraction(double integer)
+	{
+		this->integer = integer;
+		this->numerator = numerator;
+		this->denominator = 100;
+		cout << "SingleArgConstructor2:\t" << this << endl;
+	}
 	Fraction(const Fraction& other)
 	{
 		this->integer = other.integer;
@@ -148,6 +155,8 @@ public:
 	{
 		return integer + numerator / denominator;
 	}
+	
+
 	explicit operator double()const
 	{
 		return integer + (double)numerator / denominator;
@@ -175,9 +184,6 @@ public:
 		swap(inverted.numerator, inverted.denominator);
 		return inverted;
 	}
-
-
-
 	void print()const
 	{
 		if (integer)cout << integer;
@@ -222,7 +228,7 @@ Fraction operator + (Fraction left, Fraction right)
 	).to_proper();
 
 }
-//  "-"   ÊÀÊ ÈÇÁÀÂÂÈÒÜÑß ÎÒ ÂÒÎĞÎÃÎ ÌÈÍÓÑÀ?
+//  "-"   
 Fraction operator-(Fraction left, Fraction right)
 {
 	left.to_improper();
@@ -322,7 +328,7 @@ std::istream& operator >> (std::istream& is, Fraction& obj)
 		//cout << endl;
 		switch (n)
 		{
-		case 1:obj = Fraction[0]; break;
+		case 1:obj = Fraction(numbers[0]); break;
 		case 2:obj = Fraction(numbers[0], numbers[1]); break;
         case 3:obj = Fraction(numbers[0], numbers[1], numbers[2]);  break;
 
@@ -426,17 +432,18 @@ void main()
 
 	//operator type()
 	//{
-	/
+	
 
 	//}
-	Fraction A(2, 3, 4);
+	/*Fraction A(2, 3, 4);
 	cout << A << endl;
 	int a = (int)A;
 	cout << a << endl;
 	double b = (double)A;
-	cout << b << endl;
+	cout << b << endl;*/
 
-
-
+	Fraction A = Fraction(2.75);
+	cout <<"2,75 = " << A << endl;
+	
 
 }
