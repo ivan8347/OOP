@@ -1,4 +1,5 @@
 #include<iostream>
+#include<Windows.h>
 using namespace std;
 using std::cin;
 using std::cout;
@@ -118,17 +119,22 @@ std::ostream& operator<<(std::ostream& os, const String& obj)
 {
 	return os << obj.get_str();
 }
-//std::istream& operator>>(std::istream& is, String& obj)
-//{
-//	const int SIZE = 32;
-//	char sz_input[SIZE] = {};
-//	//char str;
-//	is.getline(sz_input, SIZE);
-//	//is >> str;
-//	return is;
-//}
-//#define CONSTRUCTOR_CHECK
+std::istream& operator>>(std::istream& cin, String& obj)
+{
+	const int SIZE = 1024 ;
+	char buffer[SIZE] = {};
+	cin >> buffer;
+	obj = buffer;
 
+	return cin;
+}
+std::istream& getline(std::istream& cin, String& obj)
+{
+	cin.getline(obj.get_str(), obj.get_size());
+	return cin;
+}
+//#define CONSTRUCTOR_CHECK
+//#define OPERATOR_PLUS
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -149,11 +155,21 @@ void main()
 	cout << str4 << endl;
 
 #endif // CONSTRUCTOR_CHECK
+#ifdef OPERATOR_PLUS
 	11 - 50;
 	String str1 = "Hello";
 	String str2 = "World";
 	String str3 = str1 + str2;
 	cout << str3 << endl;
 
+#endif // OPERATOR_PLUS
 
+	String str;
+	cout << "¬ведите строку :"; 
+	/*SetConsoleCP(1251);
+	cin >> str;*/
+	getline(cin, str);
+	SetConsoleCP(866);
+	//cin.getline(str.get_str(), str.get_size());
+	cout << str << endl;
 }
