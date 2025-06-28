@@ -74,26 +74,18 @@ public:
 		set_denominator(denominator);
 		cout << "Constructor : \t\t" << this << endl;
 	}
-	/*explicit Fraction(double integer)
-	{
-		this->integer = integer;
-		this->numerator = numerator;
-		this->denominator = 100;
-		cout << "SingleArgConstructor2:\t" << this << endl;
-	}*/
+	
 
 	Fraction(double decimal)
 	{
-		this->set_integer(0);
-		this->set_denominator(1);
-		this->set_numerator(decimal);
-		for (; decimal - this->get_numerator() > 0; this->denominator *= 10)
-		{
-			this->numerator = decimal * this->denominator;
-			decimal *= this->denominator;
-		}
-		//this->reduce();
-		cout << "Constructor1.1:\t" << this << endl;
+		decimal += 1e-10;
+		integer = decimal;
+		decimal -= integer;
+		denominator = 1e+9;
+		numerator = decimal * denominator;
+		reduce();
+
+
 	}
 	Fraction(const Fraction& other)
 	{
@@ -178,6 +170,31 @@ public:
 
 	//         method
 
+	Fraction& reduce()
+	{
+		int more, less, rest;
+		if (numerator < denominator)
+		{
+			less = numerator;
+			more = denominator;
+		}
+		else
+		{
+			less = denominator;
+			more = numerator;
+		}
+		do
+		{
+			rest = more % less;
+			more = less;
+			less = rest;
+		} while (rest);
+		int GCD = more;
+		numerator /= GCD;
+		denominator /= GCD;
+		return *this;
+	}
+
 	Fraction to_improper()
 	{
 		numerator += integer * denominator;
@@ -198,6 +215,7 @@ public:
 		swap(inverted.numerator, inverted.denominator);
 		return inverted;
 	}
+
 	void print()const
 	{
 		if (integer)cout << integer;
@@ -355,9 +373,10 @@ std::istream& operator >> (std::istream& is, Fraction& obj)
 //#define ARITHMETICAL_OPERATORS
 //#define INCREMENT_DECREMENT
 //#define COMPARISON_OPERTORS
-#define OSTREAM_ISTREAM
+//#define OSTREAM_ISTREAM
 //#define CONVERSIONS_FROM_OTHER_TO_CLASS
 //#define CONVERSIONS_BASICS
+//#define CONVERSION_FROM_CLASS_TO_OTHER
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -444,20 +463,23 @@ void main()
 
 #endif // CONVERSIONS_FROM_OTHER_TO_CLASS
 
+#ifdef CONVERSION_FROM_CLASS_TO_OTHER
 	//operator type()
-	//{
-	
+//{
 
-	//}
-	/*Fraction A(2, 3, 4);
-	cout << A << endl;
-	int a = (int)A;
-	cout << a << endl;
-	double b = (double)A;
-	cout << b << endl;*/
 
-	/*Fraction A = Fraction(2.75);
+//}
+/*Fraction A(2, 3, 4);
+cout << A << endl;
+int a = (int)A;
+cout << a << endl;
+double b = (double)A;
+cout << b << endl;*/
+
+#endif // CONVERSION_FROM_CLASS_TO_OTHER
+
+	Fraction A = 2.76;
 	cout <<"2,75 = " << A << endl;
-	*/
+	
 
 }
