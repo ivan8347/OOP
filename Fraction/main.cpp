@@ -74,12 +74,26 @@ public:
 		set_denominator(denominator);
 		cout << "Constructor : \t\t" << this << endl;
 	}
-	explicit Fraction(double integer)
+	/*explicit Fraction(double integer)
 	{
 		this->integer = integer;
 		this->numerator = numerator;
 		this->denominator = 100;
 		cout << "SingleArgConstructor2:\t" << this << endl;
+	}*/
+
+	Fraction(double decimal)
+	{
+		this->set_integer(0);
+		this->set_denominator(1);
+		this->set_numerator(decimal);
+		for (; decimal - this->get_numerator() > 0; this->denominator *= 10)
+		{
+			this->numerator = decimal * this->denominator;
+			decimal *= this->denominator;
+		}
+		//this->reduce();
+		cout << "Constructor1.1:\t" << this << endl;
 	}
 	Fraction(const Fraction& other)
 	{
@@ -341,7 +355,7 @@ std::istream& operator >> (std::istream& is, Fraction& obj)
 //#define ARITHMETICAL_OPERATORS
 //#define INCREMENT_DECREMENT
 //#define COMPARISON_OPERTORS
-//#define OSTREAM_ISTREAM
+#define OSTREAM_ISTREAM
 //#define CONVERSIONS_FROM_OTHER_TO_CLASS
 //#define CONVERSIONS_BASICS
 void main()
@@ -442,8 +456,8 @@ void main()
 	double b = (double)A;
 	cout << b << endl;*/
 
-	Fraction A = Fraction(2.75);
+	/*Fraction A = Fraction(2.75);
 	cout <<"2,75 = " << A << endl;
-	
+	*/
 
 }

@@ -72,7 +72,6 @@ String operator+(const String& other)
 	
 	  str3.str = new char [this->size + other.size - 1];
 	  cout << "operator '+' " << endl;
-
 	 for (int i = 0; i < this-> size-1; i++)
 	     {
 	    	  str3.str[i] = this->str[i];
@@ -82,6 +81,7 @@ String operator+(const String& other)
 	     {
 	    	 str3.str[i + this -> size - 1] = other.str[i];
 	     }
+	  
 	 return str3;	
     }
 
@@ -126,8 +126,11 @@ std::ostream& operator<<(std::ostream& os, const String& obj)
 }
 std::istream& operator>>(std::istream& is, String& obj)
 {
-	char str;
-	is >> str;
+	const int SIZE = 32;
+	char sz_input[SIZE] = {};
+	//char str;
+	is.getline(sz_input, SIZE);
+	//is >> str;
 	return is;
 } 
 
@@ -159,8 +162,8 @@ void main()
 	str1 += str2;
 	cout << "+=\t" << str1 << endl ;
 	String str;
-	cout << "¬ведите строку: "; cin >> str;
-	cout << str << endl;
+	cout << "¬ведите строку: "; cin >> str ;
+	cout << "¬веденна€ строка : " << str << endl;
 
 
 
