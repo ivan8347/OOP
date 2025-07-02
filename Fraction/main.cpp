@@ -322,7 +322,7 @@ std::istream& operator >> (std::istream& is, Fraction& obj)
 		//cout << endl;
 		switch (n)
 		{
-		case 1:obj = Fraction[0]; break;
+		case 1:obj = Fraction(numbers[0]); break;
 		case 2:obj = Fraction(numbers[0], numbers[1]); break;
         case 3:obj = Fraction(numbers[0], numbers[1], numbers[2]);  break;
 
@@ -425,10 +425,7 @@ void main()
 #endif // CONVERSIONS_FROM_OTHER_TO_CLASS
 
 	//operator type()
-	//{
-	/
-
-	//}
+	
 	Fraction A(2, 3, 4);
 	cout << A << endl;
 	int a = (int)A;

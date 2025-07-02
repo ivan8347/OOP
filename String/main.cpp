@@ -53,6 +53,15 @@ public:
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyConstructor:\t" << this << endl;
 	}
+	String(String&& other)
+	{
+		this->size = other. size;
+		this->str = other. str;
+		other.size = 0;
+		other.str = nullptr;
+		cout << "MoveConstructor : \t\t" << endl;
+
+	}
 	~String()
 	{
 		delete[] str;
@@ -72,6 +81,16 @@ public:
 		cout << "CopyAssignment:\t\t" << this << endl;
 		return *this;
 	}
+	 String&  operator=(String&& other)
+	 {
+		 delete[] this->str;
+		 this->size = other.size;
+		 this->str = other.str;
+		 other.size = 0;
+		 other.str = nullptr;
+		 cout << "MoveAssignment :\t" << this << endl;
+		 return *this;
+	 }
 	 char operator[](int i)const
 	{
 		return str[i];
@@ -80,6 +99,7 @@ public:
 	 {
 		 return str[i];
 	 }
+
 
 	
 
@@ -110,6 +130,7 @@ String operator+(const String& left, const String& right)
 		//result.get_str()[left.get_size() - 1 + i] = right.get_str()[i];
 		result [left.get_size() - 1 + i] = right[i];
 	}
+	cout << "Operator '+' :" << endl;
 	return result;
 
 }
@@ -134,7 +155,8 @@ std::istream& getline(std::istream& cin, String& obj)
 	return cin;
 }
 //#define CONSTRUCTOR_CHECK
-//#define OPERATOR_PLUS
+#define OPERATOR_PLUS
+//#define ISTREAM_OPERATOR
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -156,20 +178,26 @@ void main()
 
 #endif // CONSTRUCTOR_CHECK
 #ifdef OPERATOR_PLUS
-	11 - 50;
+	11 - 50; 12 - 50;
 	String str1 = "Hello";
 	String str2 = "World";
-	String str3 = str1 + str2;
+	cout << delimiter << endl;
+	String str3 ;
+	 str3 = str1 + str2;
+	cout << delimiter << endl;
 	cout << str3 << endl;
 
 #endif // OPERATOR_PLUS
 
+#ifdef ISTREAM_OPERATOR
 	String str;
-	cout << "¬ведите строку :"; 
-	/*SetConsoleCP(1251);
-	cin >> str;*/
+	cout << "¬ведите строку :";
+	SetConsoleCP(1251);
+	//cin >> str;*/
 	getline(cin, str);
 	SetConsoleCP(866);
 	//cin.getline(str.get_str(), str.get_size());
 	cout << str << endl;
+
+#endif // ISTREAM_OPERATOR
 }
