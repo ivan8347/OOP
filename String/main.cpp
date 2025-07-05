@@ -1,5 +1,6 @@
 #include<iostream>
 #include<Windows.h>
+#include"String.h"
 using namespace std;
 using std::cin;
 using std::cout;
@@ -8,7 +9,9 @@ using std::endl;
 #define DEBUG
 class String;
 String operator+(const String& left, const String& right);
-
+std::ostream& operator<<(std::ostream& os, const String& obj);
+std::istream& getline(std::istream& cin, String& obj);
+std::istream& operator>>(std::istream& cin, String& obj);
 class String
 
 {
@@ -175,6 +178,7 @@ std::istream& getline(std::istream& cin, String& obj)
 	cin.getline(obj.get_str(), obj.get_size());
 	return cin;
 }
+
 //#define CONSTRUCTOR_CHECK
 #define OPERATOR_PLUS
 //#define ISTREAM_OPERATOR
