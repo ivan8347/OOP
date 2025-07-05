@@ -6,7 +6,8 @@ using std::cout;
 using std::endl;
 #define delimiter "\n------------------------------------\n"
 #define DEBUG
-
+class String;
+String operator+(const String& left, const String& right);
 
 class String
 
@@ -29,20 +30,20 @@ public:
 	//				Operators:
 	String& operator=(const String& other);
 	String& operator=(String&& other);
+	String& operator+=(const String& other);	
 	char operator[](int i)const;
 	char& operator[](int i);
-	String& operator+=(const String& other);
-
 
 	//				Methods:
 	void info()const;
 };
 
-int String:: get_size()const
+
+
+    int String:: get_size()const
 	{
 		return size;
-	}
-	 
+	}	 
 	 const char* String ::get_str()const 
 	{
 		return str;
@@ -124,11 +125,11 @@ int String:: get_size()const
 
 	
 
-	//String& operator+=(const String& other)
-	//{
-	//	return *this = *this + other;
-	//
-	//}
+	String& String::operator+=(const String& other)
+	{
+		return *this = *this + other;
+	
+	}
 
 
 	//				Methods:
