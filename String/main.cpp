@@ -5,7 +5,7 @@ using std::cin;
 using std::cout;
 using std::endl;
 #define delimiter "\n------------------------------------\n"
-
+#define DEBUG
 
 
 class String
@@ -155,7 +155,7 @@ std::istream& getline(std::istream& cin, String& obj)
 	return cin;
 }
 //#define CONSTRUCTOR_CHECK
-#define OPERATOR_PLUS
+//#define OPERATOR_PLUS
 //#define ISTREAM_OPERATOR
 void main()
 {
@@ -200,4 +200,20 @@ void main()
 	cout << str << endl;
 
 #endif // ISTREAM_OPERATOR
+	String str1;
+	str1.info();
+	String str2(8);
+	str2.info();
+	String str3 = "Hello";
+	str3.info();
+	cout << typeid("Hello").name() << endl;
+
+	String str4();
+	String str5(8);
+	String str6{ 8 };
+	String str7{};
+	String str9 = str3;
+	str9.info();
+
+
 }
