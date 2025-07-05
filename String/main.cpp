@@ -32,26 +32,21 @@ public:
 
 	explicit String(int size = 80):size(size),str(new char[this-> size]{})
 	{
-		//this->size = size;
-		//this->str = new char[size] {};
 		cout << "DefaultConstructor:\t" << this << endl;
 	}
-	String(const char str[]):size(strlen(str) + 1 ), str(new char[size]{})
+	String(const char str[]):String(strlen(str) + 1 )
 	{
-		//size = 0;
-		//while (str[size++]);
-		//this->str = new char[size] {};
 		for (int i = 0; str[i]; i++)this->str[i] = str[i];
 		cout << "Constructor:\t\t" << this << endl;
 	}
-	String(const String& other):size(other.size),str(new char [size]{})
+	String(const String& other):String(other.str)
 	{
 		//Конструктор копирования дожлен выполнять DeepCopy (Побитовое копирование),
 		//т.е. выделять динамическую память под объект и побитово (поэлементно)
 		//копировать содержимое динамической памяти из существующего объекта в создаваемый.
 		//this->size = other.size;
 		//this->str = new char[size] {};
-		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
+		//for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyConstructor:\t" << this << endl;
 	}
 	String(String&& other):size(other.size),str(other.str)
@@ -187,6 +182,10 @@ void main()
 	 str3 = str1 + str2;
 	cout << delimiter << endl;
 	cout << str3 << endl;
+	 String str4 = str3;
+	cout << delimiter << endl;
+	 cout << str4 << endl;
+	cout << delimiter << endl;
 
 #endif // OPERATOR_PLUS
 
