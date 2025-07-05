@@ -29,34 +29,35 @@ public:
 	} 
 
 	//				Constructors:
-	explicit String(int size = 80)
+
+	explicit String(int size = 80):size(size),str(new char[this-> size]{})
 	{
-		this->size = size;
-		this->str = new char[size] {};
+		//this->size = size;
+		//this->str = new char[size] {};
 		cout << "DefaultConstructor:\t" << this << endl;
 	}
-	String(const char str[])
+	String(const char str[]):size(strlen(str) + 1 ), str(new char[size]{})
 	{
-		size = 0;
-		while (str[size++]);
-		this->str = new char[size] {};
+		//size = 0;
+		//while (str[size++]);
+		//this->str = new char[size] {};
 		for (int i = 0; str[i]; i++)this->str[i] = str[i];
 		cout << "Constructor:\t\t" << this << endl;
 	}
-	String(const String& other)
+	String(const String& other):size(other.size),str(new char [size]{})
 	{
 		//Конструктор копирования дожлен выполнять DeepCopy (Побитовое копирование),
 		//т.е. выделять динамическую память под объект и побитово (поэлементно)
 		//копировать содержимое динамической памяти из существующего объекта в создаваемый.
-		this->size = other.size;
-		this->str = new char[size] {};
+		//this->size = other.size;
+		//this->str = new char[size] {};
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyConstructor:\t" << this << endl;
 	}
-	String(String&& other)
+	String(String&& other):size(other.size),str(other.str)
 	{
-		this->size = other. size;
-		this->str = other. str;
+		//this->size = other. size;
+		//this->str = other. str;
 		other.size = 0;
 		other.str = nullptr;
 		cout << "MoveConstructor : \t\t" << endl;
@@ -155,7 +156,7 @@ std::istream& getline(std::istream& cin, String& obj)
 	return cin;
 }
 //#define CONSTRUCTOR_CHECK
-//#define OPERATOR_PLUS
+#define OPERATOR_PLUS
 //#define ISTREAM_OPERATOR
 void main()
 {
@@ -200,7 +201,7 @@ void main()
 	cout << str << endl;
 
 #endif // ISTREAM_OPERATOR
-	String str1;
+	/*String str1;
 	str1.info();
 	String str2(8);
 	str2.info();
@@ -213,7 +214,7 @@ void main()
 	String str6{ 8 };
 	String str7{};
 	String str9 = str3;
-	str9.info();
+	str9.info();*/
 
 
 }
