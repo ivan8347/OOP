@@ -14,32 +14,57 @@ class String
 	int size;	//Размер строки в Байтах
 	char* str;	//Указатель на строку в динамической памяти
 public:
-	int get_size()const
+	int get_size()const;	 
+	const char* get_str()const;
+	char* get_str();
+
+	//				Constructors:
+
+	explicit String(int size = 80);
+	String(const char str[]);
+	String(const String& other);
+	String(String&& other);
+	~String();
+
+	//				Operators:
+	String& operator=(const String& other);
+	String& operator=(String&& other);
+	char operator[](int i)const;
+	char& operator[](int i);
+	String& operator+=(const String& other);
+
+
+	//				Methods:
+	void info()const;
+};
+
+int String:: get_size()const
 	{
 		return size;
 	}
 	 
-	 const char* get_str()const 
+	 const char* String ::get_str()const 
 	{
 		return str;
 	}
-	 char* get_str()
+	 char* String:: get_str()
 	{
 		return str;
 	} 
 
 	//				Constructors:
 
-	explicit String(int size = 80):size(size),str(new char[this-> size]{})
+	 String::String(int size ):size(size),str(new char[this-> size]{})
 	{
 		cout << "DefaultConstructor:\t" << this << endl;
 	}
-	String(const char str[]):String(strlen(str) + 1 )
+	
+	String::String(const char str[]):String(strlen(str) + 1 )
 	{
 		for (int i = 0; str[i]; i++)this->str[i] = str[i];
 		cout << "Constructor:\t\t" << this << endl;
 	}
-	String(const String& other):String(other.str)
+	String::String(const String& other):String(other.str)
 	{
 		//Конструктор копирования дожлен выполнять DeepCopy (Побитовое копирование),
 		//т.е. выделять динамическую память под объект и побитово (поэлементно)
@@ -49,7 +74,7 @@ public:
 		//for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyConstructor:\t" << this << endl;
 	}
-	String(String&& other):size(other.size),str(other.str)
+	String::String(String&& other):size(other.size),str(other.str)
 	{
 		//this->size = other. size;
 		//this->str = other. str;
@@ -58,7 +83,7 @@ public:
 		cout << "MoveConstructor : \t\t" << endl;
 
 	}
-	~String()
+	String::~String()
 	{
 		delete[] str;
 		this->str = nullptr;
@@ -67,7 +92,7 @@ public:
 	}
 
 	//				Operators:
-	String& operator=(const String& other)
+	String& String:: operator=(const String& other)
 	{
 		if (this == &other)return *this;
 		delete[] this->str;
@@ -77,7 +102,7 @@ public:
 		cout << "CopyAssignment:\t\t" << this << endl;
 		return *this;
 	}
-	 String&  operator=(String&& other)
+	 String& String:: operator=(String&& other)
 	 {
 		 delete[] this->str;
 		 this->size = other.size;
@@ -87,11 +112,11 @@ public:
 		 cout << "MoveAssignment :\t" << this << endl;
 		 return *this;
 	 }
-	 char operator[](int i)const
+	 char String::operator[](int i)const
 	{
 		return str[i];
 	}
-	 char& operator[](int i)
+	 char& String::operator[](int i)
 	 {
 		 return str[i];
 	 }
@@ -107,12 +132,11 @@ public:
 
 
 	//				Methods:
-	void info()const
+	void String:: info()const
 	{
 		cout << "Size:\t" << size << endl;
 		cout << "Str:\t" << str << endl;
 	}
-};
 String operator+(const String& left, const String& right)
 {
 	String result  (left.get_size() + right.get_size() - 1);
