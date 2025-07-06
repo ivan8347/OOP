@@ -3,10 +3,10 @@
 
 //#define CONSTRUCTOR_CHECK
 //#define ASSIGNMENT_CHECK
-#define ARITHMETICAL_OPERATORS
+//#define ARITHMETICAL_OPERATORS
 //#define INCREMENT_DECREMENT
 //#define COMPARISON_OPERTORS
-//#define OSTREAM_ISTREAM
+#define OSTREAM_ISTREAM
 //#define CONVERSIONS_FROM_OTHER_TO_CLASS
 //#define CONVERSIONS_BASICS
 void main()
@@ -44,6 +44,7 @@ void main()
 	A.print();
 	B.print();
 	C.print();
+
 	//Fraction D = A / B;
 	//D.print();
 	//cout << delimiter << endl;
