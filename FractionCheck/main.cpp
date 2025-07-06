@@ -2,22 +2,10 @@
 
 void main()
 {
-	setlocale(LC_ALL, " ");
-
+	setlocale(LC_ALL, "");
 	Fraction A;
 	Fraction B(2, 3, 4);
 	cout << "ֲגוהטעו הנמבü קונוח '/' : ";
 	cin >> A;
 	cout << A << endl;
 }
-
-
-
-
-
-
-
-
-
-
-
