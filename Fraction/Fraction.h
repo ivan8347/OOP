@@ -15,6 +15,12 @@ Fraction operator + (Fraction left, Fraction right);
 Fraction operator - (Fraction left, Fraction right);
 std::ostream& operator<<(std::ostream& os, const Fraction& obj);
 std::istream& operator >> (std::istream& is, Fraction& obj);
+bool operator ==(Fraction left, Fraction right);
+bool operator!=(const Fraction& left, const Fraction& right);
+bool operator > (Fraction left, Fraction right);
+bool operator <(Fraction left, Fraction right);
+bool operator <=(const Fraction& left, const Fraction& right);
+
 
 class Fraction
 {

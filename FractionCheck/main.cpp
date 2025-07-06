@@ -8,4 +8,5 @@ void main()
 	cout << "ֲגוהטעו הנמבü קונוח '/' : ";
 	cin >> A;
 	cout << A << endl;
+	cout << (Fraction(1, 2) <= Fraction(5, 11)) << endl;
 }
