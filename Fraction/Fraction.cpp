@@ -66,6 +66,7 @@ Fraction::Fraction(const Fraction& other)
 //  "="
 Fraction& Fraction:: operator =(const Fraction& other)
 {
+
 	this->integer = other.integer;
 	this->numerator = other.numerator;
 	this->denominator = other.denominator;

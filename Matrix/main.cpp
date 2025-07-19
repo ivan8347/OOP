@@ -1,13 +1,12 @@
 
 #include <iostream>
-
 using namespace std;
-
 #define delimiter "\n------------------------------------\n"
 
 
 //class Matrix;
 //Matrix operator+(const Matrix& other);
+//bool operator == (const Matrix& left, const Matrix& right);
 
 class Matrix
 {
@@ -63,6 +62,9 @@ public:
     Matrix& operator = (const Matrix& other)
     {
         if (this == &other)return *this;
+        for (int i = 0; i < rows; i++)
+        delete[] this->arr[i];
+        delete[] this->arr;
         this-> rows = other.rows;
         this-> cols = other.cols;
         this-> arr = new double* [rows];
@@ -74,7 +76,7 @@ public:
                this-> arr[i][j] = other.arr[i][j];
             }
         }
-        return* this;
+        return  *this;
     cout << "CopyAssignment :\t" << this << endl;
     }
 
@@ -103,22 +105,35 @@ public:
         }
         cout << "Destructor:\t\t" << this << endl;
     }
-Matrix operator+(const Matrix& other)
-{
-    if (this-> rows == other.rows && cols == other.cols)
-    {
-        Matrix result(rows, cols);
 
-            for (int i = 0; i < rows ; i++)
+    
+    Matrix operator+(const Matrix& other)
+    {
+        if (this->rows == other.rows && cols == other.cols)
+        {
+            Matrix result(rows, cols);
+
+            for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < cols; j++)
-                result.arr[i][j] = arr[i][j] + other.arr[i][j];
+                    result.arr[i][j] = arr[i][j] + other.arr[i][j];
             }
             return result;
+        }
     }
-}
-
-Matrix operator-(const Matrix& other)
+    
+    double sum() const 
+    {
+        double sum = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                sum += arr[i][j];
+            }
+        }
+        return sum;
+    }
+    
+    Matrix operator-(const Matrix& other)
 {
     if (this->rows == other.rows && cols == other.cols)
     {
@@ -132,15 +147,97 @@ Matrix operator-(const Matrix& other)
         return result;
     }    
 }
+
+    Matrix operator * (const Matrix& other)
+    {
+        if (this->rows == other.rows && cols == other.cols)
+        {
+            Matrix result(rows, cols);
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                    result.arr[i][j] = arr[i][j] * other.arr[i][j];
+            }
+            return result;
+        }
+    } 
+    Matrix operator / (const Matrix& other)
+    {
+        if (this->rows > other.rows && cols > other.cols)
+        {
+            Matrix result(rows, cols);
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                    result.arr[i][j] = arr[i][j] / other.arr[i][j];
+            }
+            return result;
+        }
+    }
+
+
     // Оператор вывода
     friend ostream& operator<<(ostream& os, const Matrix& other);
 
     // Оператор ввода
     friend istream& operator>>(istream& is, Matrix& other);
-    
 };
 
-
+ bool operator == (const Matrix& left,const Matrix& right)
+{
+    if (left.get_rows() != right.get_rows() || left.get_cols() != right.get_cols())
+      return false;
+    
+        for (int i = 0; i < left.get_rows(); i++)
+        {          
+            for (int j = 0; j < left.get_cols(); j++)
+            {
+                if (left.get_arr()[i][j] != right.get_arr()[i][j])
+                {
+                    return false;
+                }
+            }
+        }  
+            return true;
+ 
+}
+ bool operator != (const Matrix& left,const Matrix& right)
+{
+    if (left.get_rows() == right.get_rows() || left.get_cols() == right.get_cols())
+                return true;
+      
+    
+        for (int i = 0; i < left.get_rows(); i++)
+        {          
+            for (int j = 0; j < left.get_cols(); j++)
+            {
+                if (left.get_arr()[i][j] == right.get_arr()[i][j])
+                {
+                return true;
+                }
+            }
+        }  
+                    return false;
+}
+ 
+ bool operator < (const Matrix& left, const Matrix& right)
+ {
+     return (left.get_rows() * left.get_cols() < right.get_rows() * right.get_cols());
+ }
+ bool operator > (const Matrix& left, const Matrix& right)
+ {
+     return (left.get_rows() * left.get_cols() > right.get_rows() * right.get_cols());
+ }
+ bool operator >= (const Matrix& left, const Matrix& right)
+ {
+     return (left.get_rows() * left.get_cols() >= right.get_rows() * right.get_cols());
+ }
+ bool operator <= (const Matrix& left, const Matrix& right)
+ {
+     return (left.get_rows() * left.get_cols() <= right.get_rows() * right.get_cols());
+ }
 void FillRand(Matrix& other)
 {
     for (int i = 0; i < other.get_rows(); i++)
@@ -186,7 +283,7 @@ std::istream& operator>>(std::istream& is, Matrix& other)
     is >> other.cols;
 
     // Выделяем память под новую матрицу
-    other.arr = new double* [other.rows];
+    other.arr = new double *[other.rows];
     for (int i = 0; i < other.rows; i++)
     {
         other.arr[i] = new double[other.cols];
@@ -194,29 +291,69 @@ std::istream& operator>>(std::istream& is, Matrix& other)
     return is;
 }
 
+       
 int main()
 {
     setlocale(LC_ALL, "");
 
     
-    Matrix A(2,3);
-    FillRand(A);
-    cout << A << endl;
-    Matrix C = A;
-    cout << C << endl;
-    Matrix D = C + A;
-    cout << "Operator '+' : \t" << endl;cout << D << endl;
-    Matrix F = D - A;
-    cout << "Operator '-' : \t" << endl;
-    cout << F << endl;
-    cout << delimiter;
-   
+    //Matrix A(2,3);
+    //FillRand(A);
+    //cout << A << endl;
+    //Matrix C = A;
+    //cout << C << endl;
+    //Matrix D = C + A;
+    //cout << "Operator '+' : \t" << endl;cout << D << endl;
+    //Matrix F = D - A;
+    //cout << "Operator '-' : \t" << endl;
+    //cout << F << endl;
+    //cout << delimiter;
     cout << "Введите новую матрицу:" << endl;
-    Matrix B;
-    cin >> B;
-    FillRand(B);
-    cout << "Введенная матрица:" << endl;
-    cout << B;
+    Matrix A;
+    cin >> A;
+    FillRand(A);
+    cout << "Введенная матрица: A " << endl;
+    cout << A << endl;
+    cout << "Сумма элементов матрицы A: " << A.sum() << endl;
+    cout << "\n";
+    cout << delimiter;
+    Matrix B = A;
+    cout << B << endl;
+    cout << delimiter;
+    Matrix D = B + A;
+    cout << "Operator  D = A + B : \t" << endl;cout << D << endl;
+    cout << delimiter;
+    Matrix F = D - A;
+    cout << "Operator  F = D - A : \t" << endl;cout << F << endl;
+    cout << delimiter;
+    cout << "Operator A == B: \t" << endl;
+    cout << ( A == B) << endl;
+    cout << delimiter;
+    cout << "Operator A != D : \t" << endl;
+    cout << ( A != D) << endl;
+    cout << delimiter;
+    cout << "Operator A < B : \t" << endl;
+    cout << ( A < B) << endl;
+    cout << delimiter;
+    cout << "Operator A > B : \t" << endl;
+    cout << ( A > B) << endl;
+    cout << delimiter;
+    cout << "Operator A > B : \t" << endl;
+    cout << ( A >= B) << endl;
+    cout << delimiter;
+    cout << "Operator A <= B : \t" << endl;
+    cout << ( A <= B) << endl;
+     cout << delimiter;
+     Matrix m1 = (A * B);
+     cout << "Operator A * B : \t" << endl;
+     cout << m1 << endl;
+     cout << delimiter;
+     /*Matrix m2 = (D / B);
+     cout << "Operator D / B : \t" << endl;
+     cout << m2 << endl;
+     cout << delimiter;
+    */
+
 
     
 }
