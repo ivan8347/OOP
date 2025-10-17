@@ -111,7 +111,7 @@ Point operator+(const Point& left, const Point& right)
 
 //#define STRUCT_POINT
 //#define OBJECT_LIFETIME
-//#define DISTANCE_CHECK
+#define DISTANCE_CHECK
 //#define CONSTRUCTORS_CHECK
 //#define ASSIGNMENT_CHECK
 
@@ -216,7 +216,7 @@ void main()
 	C.print();
 #endif // ASSIGNMENT_CHECK
 
-	int a = 2;
+	/*int a = 2;
 	int b = 3;
 	a + b;
 
@@ -228,7 +228,7 @@ void main()
 	for (Point i(2, 3); i.get_x() < 10; ++i)
 	{
 		i.print();
-	}
+	}*/
 
 }
 
